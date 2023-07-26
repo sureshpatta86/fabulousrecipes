@@ -9,7 +9,7 @@ import Button from "./UI/Button";
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
-  const [query, setQuery] = useState("Vegan");
+  const [query, setQuery] = useState("");
   const [limit, setLimit] = useState(30);
   const [loading, setLaoding] = useState(false);
 
@@ -19,10 +19,11 @@ const Recipes = () => {
 
   const fetchRecipe = async () => {
     try {
+      setLaoding(true);
       const data = await fetchRecipes({ query, limit });
-
-      setRecipes(data);
-
+      if (data.length > 0) {
+        setRecipes(data);
+      }
       setLaoding(false);
     } catch (error) {
       console.log(error);
@@ -41,12 +42,6 @@ const Recipes = () => {
     fetchRecipe();
   };
 
-  useEffect(() => {
-    setLaoding(true);
-
-    fetchRecipe();
-  }, []);
-
   if (loading) {
     return <Loading />;
   }
@@ -55,7 +50,7 @@ const Recipes = () => {
       <div className="w-full flex items-center justify-center pt-10 pb-5 px-0 md:px-10">
         <form className="w-full lg:w-2/4" onSubmit={handleSearchedRecipe}>
           <Searchbar
-            placeholder="eg. Cake, Vegan, Chicken"
+            placeholder="eg. Chicken, Cake, Pizza"
             handleInputChange={handleChange}
             rightIcon={
               <BiSearchAlt2
@@ -71,7 +66,7 @@ const Recipes = () => {
 
       {recipes?.length > 0 ? (
         <>
-          <div className="w-full  flex flex-wrap gap-10 px-0 lg:px-10 py-10">
+          <div className="w-full  flex flex-wrap gap-10">
             {recipes?.map((item, index) => (
               <RecipeCard recipe={item} key={index} />
             ))}
@@ -80,13 +75,13 @@ const Recipes = () => {
           <div className="flex w-full items-center justify-center py-10">
             <Button
               title="Show More"
-              containerStyle="bg-green-800 text-white px-3 py-1 rounded-full text-sm"
+              containerStyle="bg-indigo-800 text-white px-3 py-1 rounded-full text-sm"
               handleClick={showMore}
             />
           </div>
         </>
       ) : (
-        <div className="text-white w-full items-center justify-center py-10">
+        <div className="text-slate-500 w-full items-center justify-center py-10">
           <p className="text-center">No Recipe Found</p>
         </div>
       )}

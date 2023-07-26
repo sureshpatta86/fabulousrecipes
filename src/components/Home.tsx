@@ -15,6 +15,7 @@ const images = [Banner1, Banner2, Banner3, Banner4, Banner5, Banner6];
 type homeTypes = {
   title: any;
   type: string;
+  image: any;
 };
 
 const Home = ({ title, type }: homeTypes) => {

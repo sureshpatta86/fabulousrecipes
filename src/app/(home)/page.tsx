@@ -10,6 +10,7 @@ export default function Home() {
           </>
         }
         type="home"
+        image=""
       />
     </main>
   );
