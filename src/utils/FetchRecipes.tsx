@@ -1,6 +1,7 @@
 export async function fetchRecipes(filter: any) {
   const { query, limit } = filter;
   const appId = process.env.EDAMAM_APP_ID;
+  console.log(appId)
 
   const url = `https://api.edamam.com/search?q=${query}&app_id=${appId}&app_key=${process.env.EDAMAM_API_KEY}&from=0&to=${limit}&`;
 
